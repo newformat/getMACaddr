@@ -22,9 +22,8 @@ using System.Windows.Forms;
  * v1.2 (12.03.19) Выбор типа данных
  * v1.3 (14.03.19) Поиск МАС адресов по шаблону "МАС адрес" без двоеточий, сам адрес на след. строке.
  * v1.3 (16.03.19) Установить кнопку "О программе" в верхнее встроенное меню
- * необходимые поправки / исправления
- * - исключить повторой запуск программы
- * - исправить баг с сортировкой "Упрощенная, все устройства"
+ * v1.5 (20.03.19) Исправлена ошибка с шаблоном "Упрощенная сортировка,"; -
+ * Запрет на вторичный запуск(Program.cs); Поле МАС адреса можно редактировать
  */
 
 namespace parseGetMAC
@@ -46,12 +45,8 @@ namespace parseGetMAC
             bool id = false;
             foreach (String ch in s)
             {
-                if (id) {
-                    textBox2.Text = textBox2.Text + ch.Trim() + "\r\n";
-                    id = false;
-                    continue;
-                }
-                    
+                /* может пригодится, пока оставлю
+                if (id) {textBox2.Text = textBox2.Text + ch.Trim() + "\r\n";id = false;continue;} */
 
                 if (ch.IndexOf("MAC адрес:") != -1 && comboBox1.SelectedIndex == 0)
                 {
@@ -68,11 +63,12 @@ namespace parseGetMAC
                     String[] data = ch.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     textBox2.Text = textBox2.Text + data[6].Substring(15, 16) + "\r\n";
                 }
-                else if(ch.IndexOf("MAC адрес") != -1 && comboBox1.SelectedIndex == 0)
+                else if (ch.IndexOf("MAC адрес") != -1 && comboBox1.SelectedIndex == 0)
                 {
-                    id = true;
-                    continue;
+                    String[] MACAddr = ch.Split(new char[] { 'с' }, StringSplitOptions.RemoveEmptyEntries);
+                    textBox2.Text = textBox2.Text + MACAddr[1] + "\r\n";
                 }
+                /*else if(ch.IndexOf("MAC адрес") != -1 && comboBox1.SelectedIndex == 0){id = true;continue;}*/
                 else
                     continue;
 
@@ -105,11 +101,11 @@ namespace parseGetMAC
 
         private void оПрограммеToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Краткая история версий:\n - v0.3 Поиск МАС адресов под шаблон \"MAC адрес: \" (портал)\n" +
-" - v0.4 Поиск МАС адресов под шаблон \"DiscoverNotification\"(shell)\n" +
-" - v0.5 Поиск МАС адресов под шаблон \"UnknownDeviceNotification\"(shell)\n" +
-" - v0.6 Поиск серийного номера под шаблон \"Серийный номер:\"", "О программе v1.3",
-MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Последнее обновление 20.03.19 -\n" +
+                "- Исправлена ошибка с шаблоном \"Упрощенная сортировка, \";\n" +
+                "- Запрет на вторичный запуск(Program.cs);\n" 
+                + "- Поле МАС адреса можно редактировать\n", 
+                "О программе", MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
     }

@@ -113,7 +113,6 @@
             this.textBox2.Location = new System.Drawing.Point(437, 115);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox2.Size = new System.Drawing.Size(193, 304);
             this.textBox2.TabIndex = 5;
@@ -216,7 +215,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cometa - парсинг  MAC адресов v1.3";
+            this.Text = "Cometa - парсинг  MAC адресов v1.5";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
